@@ -11,10 +11,10 @@
 				<div class="col-md-6 mt-2">
 					<div class="row">
 						<div class="col-md-6 p-0 mt-2">
-							<label class="form-label pl-2">TITLE OF THE BOOK</label>
+							<label class="form-label pl-2">TITLE OF PUBLISH</label>
 						</div>
 						<div class="col-md-6 p-0 mt-2">
-							<input type="text" class="form-control w-100" name="">
+							<input type="text" class="form-control w-100" name="" id="adtitle">
 						</div>
 					</div>
 				</div>
@@ -24,7 +24,7 @@
 							<label class="form-label pl-2">DETAILS OF PUBLISHER</label>
 						</div>
 						<div class="col-md-6 p-0 mt-2">
-							<input type="text" class="form-control w-100" name="">
+							<input type="text" class="form-control w-100" name="" id="addetail">
 						</div>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 						</div>
 						<div class="col-md-6 p-0 mt-2">
 							<!-- <input type="text" class="form-rounded-1" name=""> -->
-							<select class="form-control" id="sel1">
+							<select class="form-control" id="adtype">
                                 <option>BOOK</option>
                                 <option>CHAPTER</option>
                                 <option>PAPER</option>
@@ -50,7 +50,7 @@
 							<label class="form-label pl-2">DATE</label>
 						</div>
 						<div class="col-md-6 p-0 mt-2">
-							<input type="text" class="form-control w-100" name="">
+							<input type="date" class="form-control w-100" min="<?php echo $row['year']; ?>-<?php echo $temp; ?>-01"  max="<?php echo $row['year']; ?>-<?php echo $temp; ?>-31" value="2017-01-12" name="" id="addate">
 						</div>
 					</div>
 				</div>
@@ -61,7 +61,7 @@
 						</div>
 						<div class="col-md-6 p-0 mt-2">
 							<!-- <input type="text" class="form-control w-100" name=""> -->
-							<select name="" id="" class="form-control">
+							<select name="" id="adugc" class="form-control">
 								<option value="Yes">Yes</option>
 								<option value="No">No</option>
 								<!-- <option value="Applied">Applied</option> -->
@@ -75,7 +75,7 @@
 							<label class="form-label pl-2">BIBLIOGRAPHY</label>
 						</div>
 						<div class="col-md-6 p-0 mt-2">
-							<input type="text" class="form-control w-100" name="">
+							<input type="text" class="form-control w-100" name="" id="adbiblo">
 						</div>
 					</div>
                 </div>
@@ -85,10 +85,23 @@
 							<label class="form-label pl-2">ISBN NO.</label>
 						</div>
 						<div class="col-md-6 p-0 ">
-							<input type="text" class="form-control w-100" name="">
+						<input type="text" hidden class="form-rounded-1" value="<?php echo $row['yearid']; ?>" name="adyearid" id="adyearid">
+							<input type="text" hidden class="form-rounded-1" value="<?php echo $row['monthid']; ?>" name="admonthid" id="admonthid">
+					
+							<input type="text" class="form-control w-100" name="" id="adisbn">
 						</div>
 					</div>
 				</div>
+				<div class="col-md-6 mt-2">
+					<div class="row">
+						<div class="col-md-6 p-0 mt-2">
+							<label class="form-label pl-2">VENUE</label>
+						</div>
+						<div class="col-md-6 p-0 mt-2">
+							<input type="text" class="form-control w-100" name="" id="advenue">
+						</div>
+					</div>
+                </div>
             <!-- </div>
             <div class="col-md-6">
                 <div class="row">
@@ -104,12 +117,10 @@
 		</div>
 		
 		<div class="container card-2 mb-5">
-			<input type="submit" class="btn btn-danger mx-2 my-4 " value="CANCLE" style="float: right; width: 10%; " name="">
-			<input type="submit" class="btn mx-2 w-30 my-4" value="ADD" style="float: right;background-color: #26CFE9; width: 10%; color: white;" name="">
+			<input type="submit" class="btn btn-danger mx-2 my-4 " data-dismiss="modal" value="CANCLE" style="float: right; width: 10%; " name="">
+			<button class="btn mx-2 w-30 my-4" style="float: right;background-color: #26CFE9; width: 10%; color: white;" id="addpublish">ADD</button>
         </div>
-        <div class="modal-footer">
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-								</div>
+        
 </div>
 </div>
 </div>

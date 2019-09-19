@@ -72,8 +72,8 @@ $result = mysqli_query($conn, $sql);
 				<div class="col-md-3 p-5">
 					<div class="card m-0">
 						<div class="card-body">
-							<h4 class="text-primary"><?php echo $row['monthname'] ?></h4><br>
-							<a class="anchor_design btn btn-success" style="text-decoration: none; color: black;" href="list-event-details.php">View/Add Report </a><br><br>
+							<h4 class="text-primary"><?php echo $row['monthname'] ?> </h4><br>
+							<a class="anchor_design btn btn-success" style="text-decoration: none; color: black;" href="list-event-details.php?yearid=<?php echo $row['yearid'] ?>&amp;monthid=<?php echo $row['monthid'] ?>">View/Add Report </a><br><br>
 						</div>
 						<div class="card-footer p-2 bg-primary" style="height: 50px;">
 							<a href="" style="color: white; text-decoration: none;">Generate Report</a>

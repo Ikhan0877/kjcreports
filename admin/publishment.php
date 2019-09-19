@@ -1,6 +1,44 @@
 <?php 
 include 'includes/header.php';
 include 'includes/nav-bar.php';
+
+include 'inserting/confiq.php';
+if(isset($_GET['yearid']) and ($_GET['monthid'])){
+
+    $yearid = $_GET['yearid'];
+    $monthid = $_GET['monthid'];
+     $sql = "SELECT y.yearid, y.year, m.monthid, m.monthname FROM month m, year y where y.yearid = $yearid and m.monthid =  $monthid and m.yearid = y.yearid";
+$result = mysqli_query($conn, $sql);
+
+}
+$row = mysqli_fetch_assoc($result);
+$temp=$row['monthname'];
+if($temp=="Jan"){
+    
+    $temp="01";
+}elseif($temp=="Feb"){
+    $temp="02";
+}elseif($temp=="Mar"){
+    $temp="03";
+}elseif($temp=="Apr"){
+    $temp="04";
+}elseif($temp=="May"){
+    $temp="05";
+}elseif($temp=="Jun"){
+    $temp="06";
+}elseif($temp=="Jul"){
+    $temp="07";
+}elseif($temp=="Aug"){
+    $temp="08";
+}elseif($temp=="Sep"){
+    $temp="09";
+}elseif($temp=="Oct"){
+    $temp="10";
+}elseif($temp=="Nov"){
+    $temp="11";
+}elseif($temp=="Dec"){
+    $temp="12";
+}
  ?>
   <div class="container mt-4">
     <div class="alert alert-warning alert-dismissible">
@@ -12,7 +50,7 @@ include 'includes/nav-bar.php';
 <div class="container mt-4 ">
      <div class="row">
         <div class="col-md-6">
-             <a href="" class="text-info bg-light p-2">YEAR 2019</a> &gt; <a href="" class="text-info bg-light p-2"> MONTH JANUARY</a> &gt; <a href="" class="text-info bg-light p-2">PUBLISHMENTS</a>
+             <a href="" class="text-info bg-light p-2">YEAR <?php echo $row['year']; ?></a> &gt; <a href="" class="text-info bg-light p-2"> MONTH <?php echo $row['monthname']; ?></a> &gt; <a href="" class="text-info bg-light p-2">PUBLISHMENTS</a>
         </div>
         <div class="col-md-6">
             <a href="" class="bg-dark text-light p-2 d-block ml-auto w-25" > << GO BACK</a>
@@ -79,112 +117,18 @@ include 'includes/nav-bar.php';
                              <h6>Books published</h6>
                         </div>
                         <div class="card-body p-0">
-                            <table class="table table-bordered  table-striped p-0 m-0">
-                                <tr class="table-info">
-                                    <td>Date</td>
-                                    <td>Name </td>
-                                    <td>Verified</td>
-                                    <td>Details of publisher</td>
-                                    <td class="p-0 text-center pt-2 text-lowercase">Month /Year /ISBN no
-                                    </td>
-                                
-                                    <td>Operations</td>
-                                    
-                                    <td>User</td>
-                                    </tr>
-                                    <tr >
-                                    <td>Name</td>
-                                    <td>UserId</td>
-                                    <td><span class="badge badge-danger">Unverified</span></td>
-                                    <td>Department</td>
-                                    <td class=" text-center ">
-                                       
-                                    </td>
-                                    <td><a href="" class="btn btn-sm btn-primary">Edit</a> <a href="" class="btn btn-sm btn-danger">Delete</a> <a href="" class="btn btn-sm btn-success">Report</a> </td>
-                                    <td>Status</td>
+                            <table class="table table-bordered  table-striped p-0 m-0" id="achtbl">
                                
-                                    </tr>
                             </table>
                         </div>
                         <div class="card-footer p-0 bg-primary">
                         <a href="" class="btn d-block w-100 mx-auto" data-toggle="modal" data-target="#myModal">ADD</a>
                         </div>
                     </div>
-                
-
-                <div class="card  mt-2">
-                        <div class="card-header">
-                             <h6>Article published</h6>
-                        </div>
-                        <div class="card-body p-0">
-                            <table class="table table-bordered  table-striped p-0 m-0">
-                                <tr class="table-info">
-                                    <td>Date</td>
-                                    <td>Name </td>
-                                    <td>Verified</td>
-                                    <td>Details of publisher</td>
-                                    <td class="p-0 text-center pt-2 text-lowercase">Month /Year /ISBN no
-                                    </td>
-                                
-                                    <td>Operations</td>
-                                    
-                                    <td>User</td>
-                                    </tr>
-                                    <tr >
-                                    <td>Name</td>
-                                    <td>UserId</td>
-                                    <td><span class="badge badge-danger">Unverified</span></td>
-                                    <td>Department</td>
-                                    <td class=" text-center ">
-                                       
-                                    </td>
-                                    <td><a href="" class="btn btn-sm btn-primary">Edit</a> <a href="" class="btn btn-sm btn-danger">Delete</a> <a href="" class="btn btn-sm btn-success">Report</a> </td>
-                                    <td>Status</td>
-                               
-                                    </tr>
-                            </table>
-                        </div>
-                        <div class="card-footer p-0 bg-primary">
-                        <a href="" class="btn d-block w-100 mx-auto" data-toggle="modal" data-target="#myModal">ADD</a>
-                        </div>
-                    </div>
-                
-                <div class="card  mt-2">
-                        <div class="card-header">
-                             <h6>Chapter published</h6>
-                        </div>
-                        <div class="card-body p-0">
-                            <table class="table table-bordered  table-striped p-0 m-0   ">
-                                <tr class="table-info">
-                                    <td>Date</td>
-                                    <td>Name </td>
-                                    <td>Verified</td>
-                                    <td>Details of publisher</td>
-                                    <td class="p-0 text-center pt-2 text-lowercase">Month /Year /ISBN no
-                                    </td>
-                                
-                                    <td>Operations</td>
-                                    
-                                    <td>User</td>
-                                    </tr>
-                                    <tr >
-                                    <td>Name</td>
-                                    <td>UserId</td>
-                                    <td><span class="badge badge-danger">Unverified</span></td>
-                                    <td>Department</td>
-                                    <td class=" text-center ">
-                                       
-                                    </td>
-                                    <td><a href="" class="btn btn-sm btn-primary">Edit</a> <a href="" class="btn btn-sm btn-danger">Delete</a> <a href="" class="btn btn-sm btn-success">Report</a> </td>
-                                    <td>Status</td>
-                               
-                                    </tr>
-                            </table>
-                        </div>
-                        <div class="card-footer p-0 bg-primary">
-                        <a href="" class="btn d-block w-100 mx-auto" data-toggle="modal" data-target="#myModal">ADD</a>
-                        </div>
                         <?php include 'inserting/insertpublications.php' ?>
+                        <input type="text" hidden class="form-rounded-1" value="<?php echo $row['yearid']; ?>" id="tyearid">
+						<input type="text" hidden class="form-rounded-1" value="<?php echo $row['monthid']; ?>" id="tmonthid">
+
                     </div>
                 </div>
         </div>
@@ -192,3 +136,214 @@ include 'includes/nav-bar.php';
  </section>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  <?php include 'includes/footer.php' ?>
+ <script>
+ 
+ 
+ $(document).ready(function(){
+         // showUser();
+    showpublish();
+        //Add New
+        $(document).on('click','#addpublish', function(){
+            if ($('#adtitle').val()=="" || $('#addetail').val()=="" || $('#adtype').val()=="" || $('#addate').val()=="" || $('#adugc').val()=="" || $('#adbiblo').val()=="" || $('#adisbn').val()=="" )
+            {
+                  alert('Please insert all values');
+            }
+            else
+            {
+            
+                $title=$('#adtitle').val();
+                $detail=$('#addetail').val();
+                $type=$('#adtype').val();
+                $date=$('#addate').val();
+                $ugc=$('#adugc').val();
+                $biblo=$('#adbiblo').val();
+                $isbn=$('#adisbn').val();
+                $venue=$('#advenue').val();
+                $yearid=$('#adyearid').val();
+                $monthid=$('#admonthid').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "inserting/insert.php",
+                    data: {
+                        
+                        title:$title,
+                        detail:$detail,
+                        type:$type,
+                        date:$date,
+                        ugc:$ugc,
+                        biblo:$biblo,
+                        isbn:$isbn,
+                        venue:$venue,
+                        yearid:$yearid,
+                        monthid:$monthid,
+                        status : 'enable', 
+                        addpub: 1,
+                    },
+                    success: function(){
+                      
+                        $('#adtitle').val()=="" || $('#addetail').val()=="" || $('#adtype').val()=="" || $('#addate').val()=="" || $('#adugc').val()=="" || $('#adbiblo').val()=="" || $('#adisbn').val()==""
+                        showpublish();
+                        alert('Successfully added!');
+                         $("#myModal").modal("hide");
+                    }
+                });
+            }
+            
+        });
+
+
+
+        $(document).on('click', '.Deletepub', function(){
+            $id=$(this).val();
+
+            var r = confirm("Press a button!");
+            if (r == true) {
+              $.ajax({
+                    type: "POST",
+                    url: "inserting/insert.php",
+                    data: {
+                        id: $id,
+                        delpub: 1,
+                    },
+                    success: function(){
+                        showpublication();
+                    }
+                });
+            } 
+                
+        });
+
+        function showpublish(){
+            $yearid=$('#tyearid').val();
+                $monthid=$('#tmonthid').val();
+                    $.ajax({
+                    type: "POST",
+                    url: "inserting/insert.php",
+                    data: {
+                        yearid:$yearid,
+                        monthid:$monthid,
+                        showpub: 1,
+                    },
+                    success: function(response){
+                            $('#achtbl').html(response);
+                            $(".mod").modal("hide");
+                        }
+                });
+            }
+
+
+            $(document).on('click', '.editpub', function(){
+            $id=$(this).val();
+              $.ajax({
+                    type: "POST",
+                    url: "inserting/insert.php",
+                    data: {
+                        id: $id,
+                       editpub:1,
+                       
+                    },
+                    success: function(){
+                        showpublication();
+                    }
+                });
+             
+                
+        });
+
+
+        $(document).on('click','#updatepub', function(){
+            $uid=$(this).val();
+            $('#editpub'+$uid).modal('hide');
+            $('body').removeClass('modal-open');
+			$('.modal-backdrop').remove();
+            if ($('#title').val()=="" || $('#detail').val()=="" || $('#type').val()=="" || $('#date').val()=="" || $('#ugc').val()=="" || $('#biblo').val()=="" || $('#isbn').val()=="" )
+            {
+                  alert('Please insert all values');
+            }
+            else
+            {
+            
+                $title=$('#title').val();
+                $detail=$('#detail').val();
+                $type=$('#type').val();
+                $date=$('#date').val();
+                $ugc=$('#ugc').val();
+                $biblo=$('#biblo').val();
+                $isbn=$('#isbn').val();
+                $venue=$('#venue').val();
+                $yearid=$('#yearid').val();
+                $monthid=$('#monthid').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "inserting/insert.php",
+                    data: {
+                        id: $uid,
+                        title:$title,
+                        detail:$detail,
+                        type:$type,
+                        date:$date,
+                        ugc:$ugc,
+                        biblo:$biblo,
+                        isbn:$isbn,
+                        venue:$venue,
+                        yearid:$yearid,
+                        monthid:$monthid,
+                        status : 'enable', 
+                        updatepub: 1,
+                    },
+                    success: function(){
+                      
+                        $('#title').val()=="" || $('#detail').val()=="" || $('#type').val()=="" || $('#date').val()=="" || $('#ugc').val()=="" || $('#biblo').val()=="" || $('#isbn').val()==""                        
+                        showpublish();
+                        alert('Successfully added!');
+                      
+                    }
+                });
+            }
+            
+        });
+
+
+        $(document).on('click', '#pubverify', function(){
+            $uid=$(this).val();
+            $('#editpub'+$uid).modal('hide');
+            $('body').removeClass('modal-open');
+			$('.modal-backdrop').remove();
+            if ($('#title').val()=="" || $('#detail').val()=="" || $('#type').val()=="" || $('#date').val()=="" || $('#ugc').val()=="" || $('#biblo').val()=="" || $('#isbn').val()=="" )
+            {
+                  alert('Please insert all values');
+            }
+            else
+            {
+            
+               
+                $.ajax({
+                    type: "POST",
+                    url: "inserting/insert.php",
+                    data: {
+                        id: $uid,
+                        status : 'enable', 
+                        verifypub: 1,
+                    },
+                    success: function(){
+                        $('#title').val()=="" || $('#detail').val()=="" || $('#type').val()=="" || $('#date').val()=="" || $('#ugc').val()=="" || $('#biblo').val()=="" || $('#isbn').val()==""
+                        
+                        alert('Successfully verified');
+                      
+                      
+                        showpublish();
+                       
+                    }
+            });
+            }
+        });
+            
+
+ 
+    });
+ 
+ 
+ 
+ </script>

@@ -1,6 +1,48 @@
 <?php 
 include 'includes/header.php';
 include 'includes/nav-bar.php';
+include 'inserting/confiq.php';
+if(isset($_GET['yearid']) and ($_GET['monthid'])){
+    $yearid = $_GET['yearid'];
+    $monthid = $_GET['monthid'];
+     $sql = "SELECT y.yearid, y.year, m.monthid, m.monthname FROM month m, year y where y.yearid = $yearid and m.monthid =  $monthid and m.yearid = y.yearid";
+$result = mysqli_query($conn, $sql);
+
+}
+$row = mysqli_fetch_assoc($result);
+
+$temp=$row['monthname'];
+if($temp=="Jan"){
+    
+    $temp="01";
+}elseif($temp=="Feb"){
+    $temp="02";
+}elseif($temp=="Mar"){
+    $temp="03";
+}elseif($temp=="Apr"){
+    $temp="04";
+}elseif($temp=="May"){
+    $temp="05";
+}elseif($temp=="Jun"){
+    $temp="06";
+}elseif($temp=="Jul"){
+    $temp="07";
+}elseif($temp=="Aug"){
+    $temp="08";
+}elseif($temp=="Sep"){
+    $temp="09";
+}elseif($temp=="Oct"){
+    $temp="10";
+}elseif($temp=="Nov"){
+    $temp="11";
+}elseif($temp=="Dec"){
+    $temp="12";
+}
+
+
+
+   
+
  ?>
   <div class="container mt-4">
     <div class="alert alert-warning alert-dismissible">
@@ -12,7 +54,7 @@ include 'includes/nav-bar.php';
 <div class="container mt-4 ">
      <div class="row">
         <div class="col-md-6">
-             <a href="" class="text-info bg-light p-2">YEAR 2019</a> &gt; <a href="" class="text-info bg-light p-2"> MONTH JANUARY</a> &gt; <a href="" class="text-info bg-light p-2">RESEARCH PROJECTS</a>
+             <a href="" class="text-info bg-light p-2">YEAR <?php echo $row['year']; ?></a> &gt; <a href="" class="text-info bg-light p-2"> MONTH <?php echo $row['monthname']; ?></a> &gt; <a href="" class="text-info bg-light p-2">RESEARCH PROJECTS</a>
         </div>
         <div class="col-md-6">
             <a href="" class="bg-dark text-light p-2 d-block ml-auto w-25" > << GO BACK</a>
@@ -79,36 +121,17 @@ include 'includes/nav-bar.php';
                              <h6>Research Projects</h6>
                         </div>
                         <div class="card-body p-0">
-                            <table class="table table-bordered  table-striped p-0 m-0">
-                                <tr class="table-info">
-                                    <td>Title</td>
-                                    <td>Principle Invigilators</td>
-                                    <td>Funding Agency</td>
-                                    <td>Duration(start - end)</td>
-                                    <td class="p-0 text-center pt-2 text-lowercase">Amount Sanctioned
-                                    </td>
-                                
-                                    <td>Operations</td>
-                                    
-                                    <td>User</td>
-                                    </tr>
-                                    <tr >
-                                    <td>Name</td>
-                                    <td>UserId</td>
-                                    <td><span class="badge badge-danger">Unverified</span></td>
-                                    <td>Department</td>
-                                    <td class=" text-center ">
-                                    </td>
-                                    <td><a href="" class="btn btn-sm btn-primary">Edit</a> <a href="" class="btn btn-sm btn-danger">Delete</a> <a href="" class="btn btn-sm btn-success">Report</a> </td>
-                                    <td>Status</td>
+                            <table class="table table-bordered  table-striped p-0 m-0" id="restbl">
                                
-                                    </tr>
                             </table>
                         </div>
                         <div class="card-footer p-0 bg-primary">
                         <a href="" class="btn d-block w-100 mx-auto" data-toggle="modal" data-target="#myModal">ADD</a>
                                             </div>
                         <?php include 'inserting/insertresearch.php' ?>
+                        <input type="text" hidden class="form-rounded-1" value="<?php echo $row['yearid']; ?>" id="tyearid">
+						<input type="text" hidden class="form-rounded-1" value="<?php echo $row['monthid']; ?>" id="tmonthid">
+
                     </div>
                 </div>
         </div>
@@ -116,4 +139,211 @@ include 'includes/nav-bar.php';
  </section>
  
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+ <script >
+
+$(document).ready(function(){
+
+    showresearch();
+        //Add New
+        $(document).on('click','#addresearch', function(){
+            if ($('#rtitle').val()=="" || $('#rpi').val()=="" || $('#rfa').val()=="" || $('#ras').val()=="" || $('#rfrom').val()=="" || $('#rend').val()=="" || $('#rstatus').val()=="" )
+            {
+                  alert('Please insert all values');
+            }
+            else
+            {
+            
+                $rtitle=$('#rtitle').val();
+                $rpi=$('#rpi').val();
+                $rfa=$('#rfa').val();
+                $ras=$('#ras').val();
+                $rfrom=$('#rfrom').val();
+                $rend=$('#rend').val();
+                $rstatus=$('#rstatus').val();
+                $rend=$('#rend').val();
+                $yearid=$('#adyearid').val();
+                $monthid=$('#admonthid').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "inserting/insert.php",
+                    data: {
+                        
+                        rtitle:$rtitle,
+                        rpi:$rpi,
+                        rfa:$rfa,
+                        ras:$ras,
+                        rfrom:$rfrom,
+                        rend:$rend,
+                        rstatus:$rstatus,
+                        yearid:$yearid,
+                        monthid:$monthid,
+                        status : 'enable', 
+                        addr: 1,
+                    },
+                    success: function(){
+                        showresearch();
+            
+                    $('#rtitle').val()=="" || $('#rpi').val()=="" || $('#rfa').val()=="" || $('#ras').val()=="" || $('#rfrom').val()=="" || $('#rend').val()=="" || $('#rstatus').val()=="" 
+
+                        alert('Successfully added!');
+                         $("#myModal").modal("hide");
+                    }
+                });
+               
+            }
+            
+        });
+
+        $(document).on('click', '.deleteresearch', function(){
+            $id=$(this).val();
+
+            var r = confirm("Press a button!");
+            if (r == true) {
+              $.ajax({
+                    type: "POST",
+                    url: "inserting/insert.php",
+                    data: {
+                        id: $id,
+                        delres: 1,
+                    },
+                    success: function(){
+                        showresearch();
+                    }
+                });
+            } 
+                
+        });
+
+
+        $(document).on('click', '.editres', function(){
+            $id=$(this).val();
+              $.ajax({
+                    type: "POST",
+                    url: "inserting/insert.php",
+                    data: {
+                        id: $id,
+                       editres:1,
+                       
+                    },
+                    success: function(){
+                        showachievement();
+                    }
+                });
+             
+                
+        });
+
+        function showresearch(){
+            $yearid=$('#tyearid').val();
+                $monthid=$('#tmonthid').val();
+                    $.ajax({
+                    type: "POST",
+                    url: "inserting/insert.php",
+                    data: {
+                        yearid:$yearid,
+                        monthid:$monthid,
+ 
+                        showresearch: 1,
+                    },
+                    success: function(response){
+                            $('#restbl').html(response);
+                            $(".mod").modal("hide");
+                        }
+                });
+            }
+
+
+
+
+            $(document).on('click','#editresearch', function(){
+                $uid=$(this).val();
+                
+            $('#editres'+$uid).modal('hide');
+            $('body').removeClass('modal-open');
+			$('.modal-backdrop').remove();
+            if ($('#ertitle').val()=="" || $('#erpi').val()=="" || $('#erfa').val()=="" || $('#eras').val()=="" || $('#erstatus').val()=="" )
+            {
+                  alert('Please insert all values');
+            }
+            else
+            {
+            
+                $rtitle=$('#ertitle').val();
+                $rpi=$('#erpi').val();
+                $rfa=$('#erfa').val();
+                $ras=$('#eras').val();
+                $rfrom=$('#efrom').val();
+                $rend=$('#eend').val();
+                $rstatus=$('#erstatus').val();
+                $.ajax({
+                    type: "POST",
+                    url: "inserting/insert.php",
+                    data: {
+                        id: $uid,
+                        rtitle:$rtitle,
+                        rpi:$rpi,
+                        rfa:$rfa,
+                        ras:$ras,
+                        rfrom:$rfrom,
+                        rend:$rend,
+                        rstatus:$rstatus,
+                        status : 'enable', 
+                        editr: 1,
+                    },
+                    success: function(){
+                        showresearch();
+            
+                        $('#ertitle').val()=="" || $('#erpi').val()=="" || $('#erfa').val()=="" || $('#eras').val()=="" || $('#erstatus').val()==""
+                        alert('Successfully added!');
+                      
+                    }
+                });
+               
+            }
+            
+        });
+
+
+        $(document).on('click', '#resourceverify', function(){
+			$uid=$(this).val();
+            $('#editres'+$uid).modal('hide');
+            $('body').removeClass('modal-open');
+			$('.modal-backdrop').remove();
+            if ($('#ertitle').val()=="" || $('#erpi').val()=="" || $('#erfa').val()=="" || $('#eras').val()=="" || $('#erstatus').val()=="" )
+            {
+                  alert('Please insert all values');
+            }
+            else
+            {
+               
+                $.ajax({
+                    type: "POST",
+                    url: "inserting/insert.php",
+                    data: {
+                        id: $uid,
+                        status : 'enable', 
+                        verifyresearch: 1,
+                    },
+                    success: function(){
+                        $('#ertitle').val()=="" || $('#erpi').val()=="" || $('#erfa').val()=="" || $('#eras').val()=="" || $('#erstatus').val()==""
+                        
+                        alert('Successfully verified');
+                      
+                      
+                        showresearch();
+                       
+                    }
+            });
+            }
+        });
+
+
+
+    });
+        
+
+
+ </script>
  <?php include 'includes/footer.php' ?>

@@ -5,6 +5,7 @@ include 'inserting/confiq.php';
 	$sql = "SELECT yearid,year,status FROM year";
 	$result = mysqli_query($conn, $sql);
 
+
 ?>
 
 			<h3 class="text-center text-primary mt-2"> DEPARTMENT OF COMPUTER SCIENCE (UG)</h3>

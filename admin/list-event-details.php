@@ -1,11 +1,23 @@
 <?php 
 include 'includes/header.php';
 include 'includes/nav-bar.php';
- ?>
+ include 'inserting/confiq.php';
+if(isset($_GET['yearid']) and ($_GET['monthid'])){
+    $yearid = $_GET['yearid'];
+    $monthid = $_GET['monthid'];
+    $sql = "SELECT y.yearid, y.year, m.monthid, m.monthname FROM month m, year y where y.yearid = $yearid and m.monthid =  $monthid and m.yearid = y.yearid";
+$result = mysqli_query($conn, $sql);
+
+}
+$row = mysqli_fetch_assoc($result);
+?>
+
+
+
  <div class="container mt-4">
     <div class="alert alert-warning alert-dismissible">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <strong>Note!</strong> Your Viewing the Report of year 2019 and Month Janary. <br>
+    <strong>Note!</strong> Your Viewing the Report of year <?php echo $row['year']; ?> and Month <?php echo $row['monthname']; ?>. <br>
     *click on the Generate report to download the report. <br>
     *click on the view overall report to view all the reports <br>
     </div>
@@ -31,7 +43,7 @@ include 'includes/nav-bar.php';
  <div class="container mt-4 ">
      <div class="row">
         <div class="col-md-6">
-             <a href="" class="text-info bg-light p-2">YEAR 2019</a> &gt; <a href="" class="text-info bg-light p-2"> MONTH JANUARY</a>
+             <a href="" class="text-info bg-light p-2">YEAR <?php echo $row['year']; ?></a> &gt; <a href="" class="text-info bg-light p-2"> MONTH <?php echo $row['monthname']; ?></a>
         </div>
         <div class="col-md-6">
             <a href="" class="bg-dark text-light p-2 d-block ml-auto w-25" > << GO BACK</a>
@@ -121,7 +133,7 @@ include 'includes/nav-bar.php';
                         <br/>
                     </div>
                     <div class="card-footer p-0">
-                        <a class="btn btn-primary w-100 text-white" href="studentsachievement.php">ADD / VIEW REPORT</a>
+                        <a class="btn btn-primary w-100 text-white" href="studentsachievement.php?yearid=<?php echo $row['yearid'] ?>&amp;monthid=<?php echo $row['monthid'] ?>">ADD / VIEW REPORT</a>
                     </div> 
             </div>
         </div>
@@ -139,7 +151,7 @@ include 'includes/nav-bar.php';
                         <!-- <br/> -->
                     </div>
                     <div class="card-footer p-0">
-                        <a class="btn btn-primary w-100 text-white" href="faculty-achievement.php">ADD / VIEW REPORT</a>
+                        <a class="btn btn-primary w-100 text-white" href="faculty-achievement.php?yearid=<?php echo $row['yearid'] ?>&amp;monthid=<?php echo $row['monthid'] ?>">ADD / VIEW REPORT</a>
                     </div> 
             </div>
         </div>
@@ -163,7 +175,7 @@ include 'includes/nav-bar.php';
                         
                     </div>
                     <div class="card-footer p-0">
-                        <a class="btn btn-primary w-100 text-white" href="researchproj.php">ADD / VIEW REPORT</a>
+                        <a class="btn btn-primary w-100 text-white" href="researchproj.php?yearid=<?php echo $row['yearid'] ?>&amp;monthid=<?php echo $row['monthid'] ?>">ADD / VIEW REPORT</a>
                     </div> 
             </div>
         </div>
@@ -187,7 +199,7 @@ include 'includes/nav-bar.php';
                         <a class="btn btn-info">Book published!</a> <a class="btn btn-info">Chapter published!</a> <a class="btn btn-info mt-3">Article publshed</a>
                     </div>
                     <div class="card-footer p-0">
-                        <a class="btn btn-primary w-100 text-white" href="publishment.php">ADD / VIEW REPORT</a>
+                        <a class="btn btn-primary w-100 text-white" href="publishment.php?yearid=<?php echo $row['yearid'] ?>&amp;monthid=<?php echo $row['monthid'] ?>">ADD / VIEW REPORT</a>
                     </div> 
             </div>
         </div>
